@@ -6,6 +6,8 @@ export declare class AccountManager {
     private constructor();
     static load(): Promise<AccountManager>;
     getAccountCount(): number;
+    getAccounts(): OpenAIAccount[];
+    clear(): Promise<void>;
     addAccount(auth: {
         access: string;
         refresh: string;

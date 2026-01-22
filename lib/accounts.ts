@@ -31,6 +31,15 @@ export class AccountManager {
     return this.accounts.length;
   }
 
+  getAccounts(): OpenAIAccount[] {
+    return this.accounts;
+  }
+
+  async clear() {
+    this.accounts = [];
+    await this.save();
+  }
+
   async addAccount(auth: { access: string; refresh: string; expires: number }) {
     // Check duplicates by refresh token
     let account = this.accounts.find(a => a.refreshToken === auth.refresh);

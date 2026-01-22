@@ -19,6 +19,13 @@ export class AccountManager {
     getAccountCount() {
         return this.accounts.length;
     }
+    getAccounts() {
+        return this.accounts;
+    }
+    async clear() {
+        this.accounts = [];
+        await this.save();
+    }
     async addAccount(auth) {
         // Check duplicates by refresh token
         let account = this.accounts.find(a => a.refreshToken === auth.refresh);

@@ -226,6 +226,32 @@ export const OpenAIAuthPlugin: Plugin = async ({ client }: PluginInput) => {
 					label: AUTH_LABELS.OAUTH,
 					type: "oauth" as const,
 					authorize: async () => {
+                        const mgr = await AccountManager.load();
+                        const accounts = mgr.getAccounts();
+                        
+                        if (accounts.length > 0) {
+                            console.log(`\n${accounts.length} account(s) saved:`);
+                            accounts.forEach((acc, i) => {
+                                console.log(`  ${i + 1}. ${acc.email || "Unknown Email"}`);
+                            });
+                            console.log("");
+
+                            const { createInterface } = await import("node:readline/promises");
+                            const rl = createInterface({ input: process.stdin, output: process.stdout });
+                            
+                            try {
+                                const answer = await rl.question("(a)dd new account(s) or (f)resh start? [a/f]: ");
+                                if (answer.trim().toLowerCase() === 'f') {
+                                    await mgr.clear();
+                                    console.log("Accounts cleared. Starting fresh login...");
+                                } else {
+                                    console.log("Adding new account...");
+                                }
+                            } finally {
+                                rl.close();
+                            }
+                        }
+
 						const { pkce, state, url } = await createAuthorizationFlow();
 						const serverInfo = await startLocalOAuthServer({ state });
 
