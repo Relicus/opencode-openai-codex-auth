@@ -1,7 +1,7 @@
 {
-  "name": "opencode-openai-codex-auth",
-  "version": "4.4.0",
-  "description": "OpenAI ChatGPT (Codex backend) OAuth auth plugin for opencode - use your ChatGPT Plus/Pro subscription instead of API credits",
+"name": "opencode-openai-multi-auth",
+  "version": "1.0.0",
+  "description": "Multi-Account OpenAI ChatGPT (Codex backend) OAuth auth plugin for opencode",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "type": "module",
